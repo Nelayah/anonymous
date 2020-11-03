@@ -1,0 +1,84 @@
+{
+  "name": "chat-ui",
+  "version": "1.0.0",
+  "description": "Interview",
+  "main": "_server/app.js",
+  "scripts": {
+    "dev": "NODE_ENV=production supervisor --harmony --ignore public,node_modules _server/app.js",
+    "hot": "NODE_ENV=development node --max_old_space_size=4096  --harmony _server/app.dev.js",
+    "start": "NODE_ENV=production node --harmony _server/app.js",
+    "dist": "NODE_ENV=production webpack --config ./config/webpack.config.js --progress",
+    "version": "standard-version -- --release-as"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Nelayah/anonymous.git"
+  },
+  "keywords": [],
+  "author": "pengjiasheng",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/koa": "^2.0.47",
+    "@types/node": "^10.0.4",
+    "@types/ramda": "^0.26.15",
+    "@types/react": "^16.9.17",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/superagent": "^3.5.8",
+    "@types/webpack-env": "^1.13.6",
+    "autoprefixer": "^8.4.1",
+    "classnames": "^2.2.6",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^1.0.1",
+    "cz-conventional-changelog": "^2.1.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.11",
+    "history": "^4.7.2",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
+    "postcss-loader": "^2.1.5",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
+    "standard-version": "^4.3.0",
+    "style-loader": "^0.21.0",
+    "ts-loader": "^4.2.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.4.5",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "4.28.3",
+    "webpack-cli": "^3.1.2",
+    "whatwg-fetch": "^2.0.4"
+  },
+  "dependencies": {
+    "koa": "^2.5.3",
+    "koa-better-body": "^3.0.4",
+    "koa-compress": "^3.0.0",
+    "koa-convert": "^1.2.0",
+    "koa-csrf": "^3.0.6",
+    "koa-generic-session": "^2.0.1",
+    "koa-proxy": "^0.9.0",
+    "koa-ratelimit": "^4.2.0",
+    "koa-redis": "^3.1.3",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa-webpack": "^5.1.1",
+    "module-alias": "^2.1.0",
+    "pug": "^2.0.3",
+    "ramda": "^0.26.1",
+    "redis": "^2.8.0",
+    "superagent": "^3.8.3",
+    "uuid": "^3.3.2"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@util": "./_server/util",
+    "@middleware": "./_server/middleware",
+    "@routes": "./_server/routes"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

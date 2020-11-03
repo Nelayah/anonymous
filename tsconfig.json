@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "baseUrl": ".",
+    "paths": {
+      "@root/*": ["./*"],
+      "@util/*": ["_server/util/*"],
+      "@middleware/*": ["_server/middleware/*"],
+      "@routes/*": ["_server/routes/*"],
+    },
+    "target": "es2015",
+    "noImplicitAny": false,
+    "sourceMap": false,
+    "lib": [
+      "es6",
+      "es7",
+      "dom",
+      "scripthost"
+    ],
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": [
+    "_client",
+    "node_modules"
+  ]
+}
