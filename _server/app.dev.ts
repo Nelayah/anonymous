@@ -8,20 +8,19 @@ import webpackConfig from '@root/config/webpack.config';
 import initKoaApp from '@util/initKoaApp';
 import initKoaRouter from '@util/initKoaRouter';
 
-(async () => {
-  const app = new Koa();
-  const compiler = webpack(webpackConfig);
-  const port = 3001;
+const app = new Koa();
+const compiler = webpack(webpackConfig);
+const port = 3001;
 
-  koaWebpack({compiler}).then(middleware => {
-    app
-      .use(middleware)
-      .use(convert(proxy({
-        host: `http://localhost:${port}`,
-        match: /^(?!\/(pages(\/.*)?)?$)/
-      })));
-      initKoaApp(app, initKoaRouter);
-    app.listen(port);
-    console.log(`server is listening in ${port}`);
-  });
-})();
+koaWebpack({compiler}).then(middleware => {
+  app
+    .use(middleware)
+    .use(convert(proxy({
+      host: `http://localhost:${port - 1}`,
+      match: /^(?!\/(pages(\/.*)?)?$)/
+    })));
+
+  initKoaApp(app, initKoaRouter);
+  app.listen(port);
+  console.log(`server is listening in ${port}`);
+});

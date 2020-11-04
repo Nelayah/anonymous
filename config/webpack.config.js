@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs = require("fs");
 const path = require("path");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
@@ -9,11 +8,7 @@ const autoprefixer = require("autoprefixer");
 const { NODE_ENV } = process.env;
 const DEV_MODE = NODE_ENV === 'development';
 const PROD_MODE = NODE_ENV === 'production';
-const nodeModulesPath = path.resolve(__dirname, '../node_modules');
-const extractCSS = new ExtractTextPlugin({
-    filename: `css/[name].css`,
-    allChunks: true
-});
+const extractCSS = new ExtractTextPlugin({ filename: `css/[name].css`, allChunks: true });
 const cssOptions = [
     {
         loader: 'css-loader',
@@ -35,30 +30,8 @@ const lessOptions = [
             }
         }
     },
-    {
-        loader: 'less-loader'
-    }
+    { loader: 'less-loader' }
 ];
-const findLinkedModules = nodeModulesPath => {
-    const modules = [];
-    fs.readdirSync(nodeModulesPath).forEach(dirname => {
-        const modulePath = path.resolve(nodeModulesPath, dirname);
-        const stat = fs.lstatSync(modulePath);
-        if (dirname.startsWith('.')) {
-            // not a module or scope, ignore
-        }
-        else if (dirname.startsWith('@')) {
-            // scoped modules
-            modules.push(...findLinkedModules(modulePath));
-        }
-        else if (stat.isSymbolicLink()) {
-            const realPath = fs.realpathSync(modulePath);
-            const realModulePath = path.resolve(realPath, 'node_modules');
-            modules.push(realModulePath);
-        }
-    });
-    return modules;
-};
 const configure = {
     mode: NODE_ENV,
     devtool: DEV_MODE ? '#cheap-module-eval-source-map' : 'source-map',
@@ -72,11 +45,6 @@ const configure = {
         publicPath: '/assets/'
     },
     resolve: {
-        symlinks: false,
-        modules: [
-            nodeModulesPath,
-            ...findLinkedModules(nodeModulesPath)
-        ],
         extensions: ['.ts', '.tsx', '.js', '.less'],
         alias: {
             '@root': path.resolve(__dirname, '../_client'),
@@ -117,11 +85,7 @@ const configure = {
             },
             {
                 test: /\.(png|jpg|gif|svg)$/,
-                use: [
-                    {
-                        loader: 'file-loader?name=static/images/[hash:8].[ext]'
-                    }
-                ]
+                use: [{ loader: 'file-loader?name=static/images/[hash:8].[ext]' }]
             }
         ]
     },

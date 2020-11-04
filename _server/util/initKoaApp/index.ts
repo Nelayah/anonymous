@@ -6,7 +6,6 @@ import * as session from 'koa-generic-session';
 import * as convert from 'koa-convert';
 import * as CSRF from 'koa-csrf';
 
-
 /**
  * 初始化 koa app 实例，进行初始化配置
  *

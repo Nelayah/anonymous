@@ -3,10 +3,8 @@ import * as Koa from 'koa';
 import initKoaApp from '@util/initKoaApp';
 import initKoaRouter from '@util/initKoaRouter';
 
-(async () => {
-  const app = new Koa();
-  initKoaApp(app, initKoaRouter);
-  const port = 3000;
-  app.listen(port);
-  console.log(`server is listening in ${port}`);
-})();
+const app = new Koa();
+initKoaApp(app, initKoaRouter);
+const port = 3000;
+app.listen(port);
+console.log(`server is listening in ${port}`);
