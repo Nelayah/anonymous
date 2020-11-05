@@ -5,6 +5,7 @@
     "paths": {
       "@root/*": ["./*"],
       "@util/*": ["_server/util/*"],
+      "@db": ["_server/db"],
       "@middleware/*": ["_server/middleware/*"],
       "@routes/*": ["_server/routes/*"],
     },

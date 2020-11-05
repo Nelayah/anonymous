@@ -38,7 +38,9 @@
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
     "lottie-web": "^5.7.4",
+    "md5": "^2.3.0",
     "postcss-loader": "^2.1.5",
+    "query-string": "^6.13.6",
     "rc-queue-anim": "^1.8.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -54,6 +56,7 @@
     "whatwg-fetch": "^2.0.4"
   },
   "dependencies": {
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.5.3",
     "koa-better-body": "^3.0.4",
     "koa-compress": "^3.0.0",
@@ -78,7 +81,8 @@
     "@root": ".",
     "@util": "./_server/util",
     "@middleware": "./_server/middleware",
-    "@routes": "./_server/routes"
+    "@routes": "./_server/routes",
+    "@db": "./_server/db"
   },
   "config": {
     "commitizen": {

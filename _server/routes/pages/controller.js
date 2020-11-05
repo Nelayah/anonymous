@@ -35,7 +35,7 @@ class Controller {
          * @param {Object} ctx koa context
          */
         this.render = (ctx) => __awaiter(this, void 0, void 0, function* () {
-            return ctx.body = pug.renderFile(`_server/view/index.pug`, { csrf: ctx.csrf });
+            return ctx.body = pug.renderFile(`_server/view/index.pug`, { csrf: ctx.csrf, env: process.env.NODE_ENV });
         });
     }
 }

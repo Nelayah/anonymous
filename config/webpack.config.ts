@@ -34,7 +34,6 @@ const lessOptions = [
 
 const configure = {
   mode: NODE_ENV,
-  devtool: DEV_MODE ? '#cheap-module-eval-source-map' : 'source-map',
   entry: {
     'js/app': ['./_client/index.tsx']
   },
@@ -49,7 +48,8 @@ const configure = {
     alias: {
       '@root': path.resolve(__dirname, '../_client'),
       '@pages': path.resolve(__dirname, '../_client/pages'),
-      '@util': path.resolve(__dirname, '../_client/utils')
+      '@util': path.resolve(__dirname, '../_client/utils'),
+      '@apis': path.resolve(__dirname, '../_client/apis')
     }
   },
   module: {
@@ -62,8 +62,7 @@ const configure = {
           options: {
             transpileOnly: true,
             compilerOptions: {
-              module: 'es2015',
-              sourceMap: true
+              module: 'es2015'
             }
           }
         }]

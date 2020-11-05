@@ -24,7 +24,7 @@ class Controller {
    * @param {Object} ctx koa context
    */
   public render = async (ctx: Types.KoaContext) => {
-    return ctx.body = pug.renderFile(`_server/view/index.pug`, {csrf: ctx.csrf});
+    return ctx.body = pug.renderFile(`_server/view/index.pug`, {csrf: ctx.csrf, env: process.env.NODE_ENV});
   }
 }
 

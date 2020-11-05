@@ -1,6 +1,6 @@
 import ctrl from './controller';
 
 export default router => {
-  router.get('/login', ctrl.login);
-  router.get('/register', ctrl.register);
+  router.post('/v1/auth/login', ctrl.login);
+  router.post('/v1/auth/register', ctrl.register);
 };

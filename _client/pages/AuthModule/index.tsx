@@ -1,7 +1,9 @@
 import * as React from 'react';
+import md5 from 'md5';
 import style from './style.less';
 import lottie from 'lottie-web';
 import QueueAnim from 'rc-queue-anim';
+import apis from '@apis';
 import { useSetState } from 'ahooks';
 import { useEffect, useRef, useState, useCallback } from 'react';
 
@@ -26,7 +28,10 @@ const Component: React.FC<IAppProps> = props => {
     // 注册
     if (toggle) {
       if (state.pwd !== state.confirmPwd) console.log('err');
+      apis.auth.register({username: state.username, pwd: md5(state.pwd)});
+      return;
     }
+    apis.auth.login({username: state.username, pwd: md5(state.pwd)});
   }, [state, toggle]);
 
   useEffect(() => {

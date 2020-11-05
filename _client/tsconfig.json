@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "paths": {
       "@pages/*": ["pages/*"],
+      "@apis": ["apis"],
       "@util/*": ["utils/*"],
     },
     "target": "es5",

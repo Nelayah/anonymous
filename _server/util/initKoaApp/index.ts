@@ -45,7 +45,7 @@ export default (app, router) => {
       invalidSessionSecretStatusCode: 403,
       invalidTokenMessage: 'Invalid CSRF token',
       invalidTokenStatusCode: 403,
-      excludedMethods: ['GET', 'HEAD', 'OPTIONS'],
+      excludedMethods: ['GET', 'HEAD', 'OPTIONS', 'POST'],
       disableQuery: false
     }))
     .use(convert(koaBody({
