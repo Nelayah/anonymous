@@ -4,8 +4,10 @@
     "baseUrl": ".",
     "paths": {
       "@root/*": ["./*"],
-      "@util/*": ["_server/util/*"],
       "@db": ["_server/db"],
+      "@cache": ["_server/cache"],
+      "@config/*": ["./config/*"],
+      "@util/*": ["_server/util/*"],
       "@middleware/*": ["_server/middleware/*"],
       "@routes/*": ["_server/routes/*"],
     },

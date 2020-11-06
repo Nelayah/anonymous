@@ -1,3 +1,4 @@
+// 使用 lowdb 作为本地存储方案
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 

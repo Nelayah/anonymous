@@ -71,6 +71,7 @@
     "koa-webpack": "^5.1.1",
     "lowdb": "^1.0.0",
     "module-alias": "^2.1.0",
+    "node-cache": "^5.1.2",
     "pug": "^2.0.3",
     "ramda": "^0.26.1",
     "redis": "^2.8.0",
@@ -79,10 +80,12 @@
   },
   "_moduleAliases": {
     "@root": ".",
+    "@config": "./config",
     "@util": "./_server/util",
     "@middleware": "./_server/middleware",
     "@routes": "./_server/routes",
-    "@db": "./_server/db"
+    "@db": "./_server/db",
+    "@cache": "./_server/cache"
   },
   "config": {
     "commitizen": {

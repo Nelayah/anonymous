@@ -9,7 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const jsonwebtoken = require("jsonwebtoken");
+const uuid = require("uuid/v4");
+const _cache_1 = require("@cache");
 const _db_1 = require("@db");
+const system_1 = require("@config/system");
 /**
  * 权限校验相关
  *
@@ -36,6 +40,13 @@ class Controller {
                 };
                 return;
             }
+            // token based 登录状态保持
+            const cacheKey = uuid();
+            // 生成 jwt
+            const jwt = jsonwebtoken.sign({ name, password }, system_1.JWT_PRIVATE_KEY, { expiresIn: system_1.JWT_TTL });
+            // 生成缓存映射关系
+            _cache_1.default.set(cacheKey, jwt, system_1.CACHE_TTL);
+            ctx.cookies.set(system_1.COOKIE_KEY, cacheKey, { httpOnly: true, maxAge: system_1.COOKIE_MAX_AGE });
             ctx.body = { code: 0, status: 200, msg: '登陆成功' };
         });
         /**
@@ -61,6 +72,20 @@ class Controller {
                 .push({ name, password })
                 .write();
             ctx.body = { code: 0, status: 200, msg: '注册成功' };
+        });
+        /**
+         * 登出接口
+         *
+         * @memberof Controller
+         * @public
+         * @param {Object} ctx koa context
+         */
+        this.logout = (ctx) => __awaiter(this, void 0, void 0, function* () {
+            const cacheKey = ctx.cookies.get(system_1.COOKIE_KEY);
+            if (cacheKey)
+                _cache_1.default.del(cacheKey);
+            ctx.cookies.set(system_1.COOKIE_KEY, null);
+            ctx.body = { code: 0, status: 200, msg: null };
         });
     }
 }
