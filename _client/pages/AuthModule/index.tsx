@@ -46,7 +46,10 @@ const Component: React.FC<IAppProps> = React.forwardRef((props, _) => {
     }
     apis.auth
       .login({ name: state.username, password: md5(state.pwd) })
-      .then(props.onLogin)
+      .then(() => {
+        showToast('登录成功');
+        props.onLogin();
+      })
       .catch(ret => {
         showToast(ret.msg);
       });

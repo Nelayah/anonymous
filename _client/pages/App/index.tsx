@@ -1,6 +1,7 @@
 import * as React from 'react';
 import QueueAnim from 'rc-queue-anim';
 import AuthModule from '@pages/AuthModule';
+import ChatModule from '@pages/ChatModule';
 import style from './style.less';
 import apis from '@apis';
 import Toast from '@components/Toast';
@@ -14,14 +15,21 @@ interface IAppProps {}
 
 const Component: React.FC<IAppProps> = props => {
   const [type, setType] = useState<any>(PENDING);
+  const [user, setUser] = useState<any>({});
 
+  const onNavigationAuth = useCallback(() => {
+    setUser({});
+    setType(EXPIRED);
+  }, []);
   const onNavigationChatRoom = useCallback(() => {
     setType(PERMISSION);
   }, []);
 
   useEffect(() => {
-    apis.auth.userInfo()
-      .then(() => {
+    apis.auth
+      .userInfo()
+      .then(res => {
+        setUser(res);
         setType(PERMISSION);
       })
       .catch(() => {
@@ -40,7 +48,9 @@ const Component: React.FC<IAppProps> = props => {
       )}
       {type === PERMISSION && (
         <QueueAnim type="alpha" duration={2000} delay={200}>
-          <div key="10">Hello world</div>
+          <div key="10">
+            <ChatModule onLogout={onNavigationAuth} />
+          </div>
         </QueueAnim>
       )}
       <Toast />
