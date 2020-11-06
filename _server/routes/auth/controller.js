@@ -30,12 +30,22 @@ class Controller {
          */
         this.login = (ctx) => __awaiter(this, void 0, void 0, function* () {
             const { name, password } = ctx.request.fields;
+            if (!name || !password) {
+                ctx.status = 400;
+                return ctx.body = {
+                    code: -1,
+                    status: 400,
+                    data: null,
+                    msg: '用户名或密码不可为空'
+                };
+            }
             const data = _db_1.default.get('users').find({ name, password }).value();
             if (!data) {
                 ctx.status = 401;
                 ctx.body = {
                     code: -1,
                     status: 401,
+                    data: null,
                     msg: '登录失败，请重新登录'
                 };
                 return;
@@ -43,11 +53,11 @@ class Controller {
             // token based 登录状态保持
             const cacheKey = uuid();
             // 生成 jwt
-            const jwt = jsonwebtoken.sign({ name, password }, system_1.JWT_PRIVATE_KEY, { expiresIn: system_1.JWT_TTL });
+            const jwt = jsonwebtoken.sign({ id: data.id, name, password }, system_1.JWT_PRIVATE_KEY, { expiresIn: system_1.JWT_TTL });
             // 生成缓存映射关系
             _cache_1.default.set(cacheKey, jwt, system_1.CACHE_TTL);
             ctx.cookies.set(system_1.COOKIE_KEY, cacheKey, { httpOnly: true, maxAge: system_1.COOKIE_MAX_AGE });
-            ctx.body = { code: 0, status: 200, msg: '登陆成功' };
+            ctx.body = { code: 0, status: 200, msg: '登陆成功', data: null };
         });
         /**
          * 注册接口
@@ -58,20 +68,29 @@ class Controller {
          */
         this.register = (ctx) => __awaiter(this, void 0, void 0, function* () {
             const { name, password } = ctx.request.fields;
+            if (!name || !password) {
+                ctx.status = 400;
+                return ctx.body = {
+                    code: -1,
+                    status: 400,
+                    data: null,
+                    msg: '用户名或密码不可为空'
+                };
+            }
             const data = _db_1.default.get('users').find({ name, password }).value();
             if (data) {
                 ctx.status = 400;
-                ctx.body = {
+                return ctx.body = {
                     code: -1,
                     status: 400,
+                    data: null,
                     msg: '注册失败，账号已存在'
                 };
-                return;
             }
             _db_1.default.get('users')
-                .push({ name, password })
+                .push({ id: uuid(), name, password, createdTime: Date.now() })
                 .write();
-            ctx.body = { code: 0, status: 200, msg: '注册成功' };
+            ctx.body = { code: 0, status: 200, msg: '注册成功', data: null };
         });
         /**
          * 登出接口
@@ -85,7 +104,27 @@ class Controller {
             if (cacheKey)
                 _cache_1.default.del(cacheKey);
             ctx.cookies.set(system_1.COOKIE_KEY, null);
-            ctx.body = { code: 0, status: 200, msg: null };
+            ctx.body = { code: 0, status: 200, msg: null, data: null };
+        });
+        /**
+         * 获取用户信息
+         *
+         * @memberof Controller
+         * @public
+         * @param {Object} ctx koa context
+         */
+        this.user = (ctx) => __awaiter(this, void 0, void 0, function* () {
+            const cacheKey = ctx.cookies.get(system_1.COOKIE_KEY);
+            const jwt = _cache_1.default.get(cacheKey);
+            const decoded = jsonwebtoken.verify(jwt, system_1.JWT_PRIVATE_KEY);
+            const data = _db_1.default.get('users').find({ id: decoded.id }).value();
+            ctx.status = 200;
+            ctx.body = {
+                code: 0,
+                status: 200,
+                data,
+                msg: null
+            };
         });
     }
 }

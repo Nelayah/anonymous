@@ -2,10 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 require("module-alias/register");
 const Koa = require("koa");
+const http = require("http");
 const initKoaApp_1 = require("@util/initKoaApp");
 const initKoaRouter_1 = require("@util/initKoaRouter");
+const port = 3000;
 const app = new Koa();
 initKoaApp_1.default(app, initKoaRouter_1.default);
-const port = 3000;
-app.listen(port);
+const server = http.createServer(app.callback());
+exports.io = require('socket.io')(server);
+server.listen(port);
 console.log(`server is listening in ${port}`);

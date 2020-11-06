@@ -19,5 +19,12 @@ export default ({
   register: {
     method: 'post',
     url: '/v1/auth/register'
+  },
+  /**
+   * @description 获取用户信息
+   */
+  userInfo: {
+    method: 'get',
+    url: '/v1/auth/user'
   }
 });

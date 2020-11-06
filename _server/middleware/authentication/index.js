@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken = require("jsonwebtoken");
 const _cache_1 = require("@cache");
 const system_1 = require("@config/system");
-const errRepText = { code: -1, status: 401, msg: '登录状态已过期，请重新登录' };
+const errRepText = { code: -1, status: 401, data: null, msg: '登录状态已过期，请重新登录' };
 const errCallback = ctx => {
     ctx.status = 401;
     ctx.body = errRepText;
@@ -26,7 +26,7 @@ const errCallback = ctx => {
 exports.default = (ctx, next) => __awaiter(void 0, void 0, void 0, function* () {
     const cacheKey = ctx.cookies.get(system_1.COOKIE_KEY);
     // cookie 不存在
-    if (cacheKey)
+    if (!cacheKey)
         return errCallback(ctx);
     const jwt = _cache_1.default.get(cacheKey);
     // jwt 不存在

@@ -6,6 +6,7 @@
       "@pages/*": ["pages/*"],
       "@apis": ["apis"],
       "@util/*": ["utils/*"],
+      "@components/*": ["components/*"],
     },
     "target": "es5",
     "noImplicitAny": false,

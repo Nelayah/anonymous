@@ -18,12 +18,11 @@ const initFetcher = params => {
       },
       body: !isCondition ? JSON.stringify(data) : null
     })
-    .then(response => response.ok ? response.json() : response)
+    .then(response => response.json())
     .then(response => {
-      if (Number(response.status) === 0) return response.data;
+      if (response.status === 200) return response.data;
       throw response;
     }).catch(error => {
-      console.error(error);
       throw error;
     });
   };

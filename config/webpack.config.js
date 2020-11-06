@@ -49,7 +49,8 @@ const configure = {
             '@root': path.resolve(__dirname, '../_client'),
             '@pages': path.resolve(__dirname, '../_client/pages'),
             '@util': path.resolve(__dirname, '../_client/utils'),
-            '@apis': path.resolve(__dirname, '../_client/apis')
+            '@apis': path.resolve(__dirname, '../_client/apis'),
+            '@components': path.resolve(__dirname, '../_client/components')
         }
     },
     module: {

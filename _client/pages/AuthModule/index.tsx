@@ -4,34 +4,52 @@ import style from './style.less';
 import lottie from 'lottie-web';
 import QueueAnim from 'rc-queue-anim';
 import apis from '@apis';
+import { showToast } from '@components/Toast';
 import { useSetState } from 'ahooks';
 import { useEffect, useRef, useState, useCallback } from 'react';
 
-interface IAppProps {}
+interface IAppProps {
+  onLogin: any;
+}
 
-const Component: React.FC<IAppProps> = props => {
+const INITIAL_STATE = {
+  username: '',
+  pwd: '',
+  confirmPwd: ''
+};
+
+const Component: React.FC<IAppProps> = React.forwardRef((props, _) => {
   const logoRef = useRef(null);
   const [toggle, setToggle] = useState(false);
-  const [state, setState] = useSetState<any>({
-    username: '',
-    pwd: '',
-    confirmPwd: ''
-  });
+  const [state, setState] = useSetState<any>(INITIAL_STATE);
 
   const onToggle  = useCallback(() => {
     setToggle(prev => !prev);
-    setState(({confirmPwd: ''}));
+    setState(INITIAL_STATE);
   }, []);
 
   const onSubmit = useCallback(() => {
-    if (!state.pwd) return;
+    if (!state.pwd || !state.username) return showToast('用户或密码不可为空');
     // 注册
     if (toggle) {
-      if (state.pwd !== state.confirmPwd) console.log('err');
-      apis.auth.register({username: state.username, pwd: md5(state.pwd)});
+      if (state.pwd !== state.confirmPwd) return showToast('密码前后不一致');
+      apis.auth
+        .register({ name: state.username, password: md5(state.pwd) })
+        .then(() => {
+          setToggle(false);
+          setState(INITIAL_STATE);
+        })
+        .catch(ret => {
+          showToast(ret.msg);
+        });
       return;
     }
-    apis.auth.login({username: state.username, pwd: md5(state.pwd)});
+    apis.auth
+      .login({ name: state.username, password: md5(state.pwd) })
+      .then(props.onLogin)
+      .catch(ret => {
+        showToast(ret.msg);
+      });
   }, [state, toggle]);
 
   useEffect(() => {
@@ -96,7 +114,7 @@ const Component: React.FC<IAppProps> = props => {
       <div className={style.btn} onTouchStart={onSubmit}>{!toggle ? '登录' : '注册'}</div>
     </div>
   );
-};
+});
 Component.displayName = 'AuthModule';
 
 export default Component;
