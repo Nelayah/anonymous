@@ -32,4 +32,4 @@ $ npm start
 
 ## Attention
 
-因为 `node-cache` 数据保存在内存，每次重启服务器将会清空 JWT 所映射的 KEY，即会让所有人在线的人重新登录。
+因为 `node-cache` 数据保存在内存，每次重启服务器将会清空 JWT 所映射的 KEY，即会让所有在线的人重新登录。
