@@ -1,4 +1,4 @@
-# 匿名聊天室
+# Anonymous - 匿名聊天室
 
 ## Usage
 
@@ -11,11 +11,11 @@ $ npm start
 
 ## Desc
 
-技术选型：React + Koa + socket.io + chatui
+技术选型：`React` + `Koa` + `socket.io` + `chatui`
 
 本地存储：使用 lowdb 模拟实际数据库
 
-缓存：使用 node-cache 作为 redis 的替代
+缓存：使用 `node-cache` 作为 `redis` 的替代
 
 文件存储：使用的是腾讯云的对象存储
 
@@ -32,4 +32,4 @@ $ npm start
 
 ## Attention
 
-每次重启将会清空 JWT 所映射的 KEY
+因为 `node-cache` 数据保存在内存，每次重启服务器将会清空 JWT 所映射的 KEY，即会让所有人在线的人重新登录。
