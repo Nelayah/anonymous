@@ -1,13 +1,21 @@
-import {io} from '@root/_server/app';
+import * as uuid from 'uuid/v4';
+import * as xss from 'xss';
+import db from '@db';
 
-// 监听 connect 事件
-io.on('connection', socket => {
-  socket.emit('open');
-  // 通知客户端已连接
-  console.log('connected');
+export default io => {
+  io.on('connection', client => {
+    client.emit('open');
+    client.on('message', data => {
+      const user = db.get('users').find({ id: data.userId }).value();
+      const msg = { id: uuid(), ...data, name: user.name, createdTime: Date.now() };
+      // @ts-ignore
+      // 防止 xss, 转义字符串
+      if (msg.type === 'text') msg.content.text = xss(msg.content.text);
 
-  // 监听 disconnect 事件
-  socket.on('disconnect', () => {
-    console.log('disconnect');
+      db.get('messages').push(msg).write();
+
+      client.broadcast.emit('broadcast', msg);
+      client.emit('broadcast', msg);
+    });
   });
-});
+};

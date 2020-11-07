@@ -1,4 +1,5 @@
 .container {
+  position: relative;
   :global {
     .ChatApp {
       height: 100vh;
@@ -9,5 +10,62 @@
     .Navbar-title {
       color: #333;
     }
+  }
+  .userBaseInfo {
+    text-align: center;
+    color: #999;
+  }
+  .paddingLeft {
+    padding-right: 10px;
+  }
+  .paddingRight {
+    padding-left: 10px;
+  }
+}
+.textContainer {
+  display: flex;
+  .userBaseInfo {
+    min-width: 50px;
+    font-size: .5rem;
+  }
+  :global {
+    .Bubble {
+      margin-top: 10px;
+      flex: 1;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+  .username {
+    height: 5px;
+    font-size: 12px;
+    transform: scale(.8) translateY(-5px);
+  }
+}
+
+.spinnerContainer {
+  z-index: 5000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .spinner {
+    @size: 40px;
+    width: @size;
+    height: @size;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white; 
+    border-radius: 50%;
+    font-size: 24px;
+    color: red;
   }
 }

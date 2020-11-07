@@ -36,6 +36,7 @@ const Component: React.FC<IAppProps> = React.forwardRef((props, _) => {
       apis.auth
         .register({ name: state.username, password: md5(state.pwd) })
         .then(() => {
+          showToast('注册成功');
           setToggle(false);
           setState(INITIAL_STATE);
         })
@@ -113,8 +114,8 @@ const Component: React.FC<IAppProps> = React.forwardRef((props, _) => {
           </div>
         </QueueAnim>
       )}
-      <div className={style.toggle} onTouchStart={onToggle}>切换到{toggle ? '登录' : '注册'}</div>
-      <div className={style.btn} onTouchStart={onSubmit}>{!toggle ? '登录' : '注册'}</div>
+      <div className={style.toggle} onClick={onToggle}>切换到{toggle ? '登录' : '注册'}</div>
+      <div className={style.btn} onClick={onSubmit}>{!toggle ? '登录' : '注册'}</div>
     </div>
   );
 });

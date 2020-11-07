@@ -10,6 +10,7 @@
       "@util/*": ["_server/util/*"],
       "@middleware/*": ["_server/middleware/*"],
       "@routes/*": ["_server/routes/*"],
+      "@socket/*": ["_server/socket"],
     },
     "target": "es2015",
     "noImplicitAny": false,

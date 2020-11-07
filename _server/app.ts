@@ -1,6 +1,7 @@
 import 'module-alias/register';
 import * as Koa from 'koa';
-import * as http from 'http';
+import ip from '@util/ip';
+import socket from '@socket/index';
 import initKoaApp from '@util/initKoaApp';
 import initKoaRouter from '@util/initKoaRouter';
 
@@ -8,8 +9,12 @@ const port = 3000;
 const app = new Koa();
 initKoaApp(app, initKoaRouter);
 
-const server = http.createServer(app.callback());
-export const io = require('socket.io')(server);
+const server = require('http').createServer(app.callback());
+const io = require('socket.io')(server);
+
+socket(io);
 
 server.listen(port);
-console.log(`server is listening in ${port}`);
+
+console.log(`http://localhost:${port}`);
+console.log(`http://${ip()}:${port}`);

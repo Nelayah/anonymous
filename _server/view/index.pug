@@ -8,7 +8,7 @@ html
     - if (env === 'production')
       link(rel="stylesheet", href="/assets/css/js/app.css")
 
-    title Anonymous
+    title 匿名聊天室
 
   body
     #app
@@ -26,11 +26,13 @@ html
         if (screenWidth <= 320) {
           oHtml.style.fontSize = 10 + 'px';
         } else if (screenWidth >= 640) {
-          oHtml.style.fontSize = 15 + 'px';
+          oHtml.style.fontSize = 20 + 'px';
         } else {
-          oHtml.style.fontSize = screenWidth / 640 * 15 + 'px';
+          oHtml.style.fontSize = screenWidth / 640 * 20 + 'px';
         }
       }
 
     script(type="text/javascript" src='/assets/js/app.js')
-    
+    //- script(type="text/javascript" src='https://cdn.bootcdn.net/ajax/libs/vConsole/3.3.4/vconsole.min.js')
+    //- script.
+    //-   var vConsole = new VConsole();

@@ -17,7 +17,7 @@ koaWebpack({ compiler }).then(middleware => {
         .use(middleware)
         .use(convert(proxy({
         host: `http://localhost:${port - 1}`,
-        match: /^(?!\/(pages(\/.*)?)?$)/
+        match: /^(?!\/(((pages)|(socket))(\/.*)?)?$)/
     })));
     initKoaApp_1.default(app, initKoaRouter_1.default);
     app.listen(port);

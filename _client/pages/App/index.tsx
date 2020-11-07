@@ -22,10 +22,10 @@ const Component: React.FC<IAppProps> = props => {
     setType(EXPIRED);
   }, []);
   const onNavigationChatRoom = useCallback(() => {
-    setType(PERMISSION);
+    fetchUserInfo();
   }, []);
 
-  useEffect(() => {
+  const fetchUserInfo = useCallback(() => {
     apis.auth
       .userInfo()
       .then(res => {
@@ -35,6 +35,10 @@ const Component: React.FC<IAppProps> = props => {
       .catch(() => {
         setType(EXPIRED);
       });
+  }, []);
+
+  useEffect(() => {
+    fetchUserInfo();
   }, []);
 
   return (
@@ -49,7 +53,7 @@ const Component: React.FC<IAppProps> = props => {
       {type === PERMISSION && (
         <QueueAnim type="alpha" duration={2000} delay={200}>
           <div key="10">
-            <ChatModule onLogout={onNavigationAuth} />
+            <ChatModule onLogout={onNavigationAuth} user={user} />
           </div>
         </QueueAnim>
       )}
